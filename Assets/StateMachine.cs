@@ -28,14 +28,20 @@ public class StateMachine : MonoBehaviour
     public GameObject pickUpTarget;
     //the target to destroy
     public GameObject critterTarget;
+    //the target to run away from
+    public GameObject bearTarget;
     //how long the unit travels before it changes direction again
     public float wanderDistance = 10f;
     //at what range does the unit see the item to collect or a critter to destroy
     public float pickUpDistance = 17f;
+    //at what range does the unit see the bear and runs away
+    public float BearDistance = 15f;
     //create a new list of game objects to collect
     public static List<GameObject> pickUps = new List<GameObject>();
     //create a new list of game objects to destroy
     public static List<GameObject> critters = new List<GameObject>();
+    //create a new list of game objects to destroy
+    public static List<GameObject> bears = new List<GameObject>();
 
     private void OnEnable()
     {

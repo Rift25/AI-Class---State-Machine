@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+//Helped me implement run away state
+//https://www.youtube.com/watch?v=Zjlg9F3FRJs
 
 public class RunState : INPCState
 {
@@ -11,20 +13,35 @@ public class RunState : INPCState
             npc.navAgent = npc.GetComponent<NavMeshAgent>();
         //tells the npc to move to the critter
         RunFromBear(npc);
+        foreach (GameObject bear in StateMachine.bears)
+        {
+            float distance = Vector3.Distance(npc.transform.position, bear.transform.position);
+
+            if (distance > npc.BearDistance)
+            {
+                return npc.wanderState;
+            }
+        }
         //if the critter isn't alive
-        if (!npc.critterTarget.activeSelf)
+        if (!npc.bearTarget.activeSelf)
             //go back to wander state
             return npc.wanderState;
         else
             //otherwise set the state to be attack state
-            return npc.runState;
+            return npc.runState; 
     }
 
     private void RunFromBear(StateMachine npc)
     {
-        //if the npcs destination isn't the critters position
-        if (npc.navAgent.destination != npc.critterTarget.transform.position)
-            //move it to its location
-            npc.navAgent.SetDestination(-npc.critterTarget.transform.position);
+        foreach (GameObject bear in StateMachine.bears)
+        {
+            float distance = Vector3.Distance(npc.transform.position, bear.transform.position);
+            if (distance <= npc.BearDistance)
+            {
+                Vector3 dirToPlayer = npc.transform.position - bear.transform.position;
+                Vector3 newPos = npc.transform.position + dirToPlayer;
+                npc.navAgent.SetDestination(newPos);
+            }
+        }
     }
 }

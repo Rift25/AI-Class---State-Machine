@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4bbca08168a7f5244afbb3076ea9968a, type: 2}
+  - {fileID: 2100000, guid: 49015c52dca7bfb41a52dd64c6b13579, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,9 +107,9 @@ GameObject:
   - component: {fileID: 6895082694666838785}
   - component: {fileID: 2527619003819798966}
   - component: {fileID: 8577030122788084616}
-  - component: {fileID: -160984771358049223}
+  - component: {fileID: -5554488305120913895}
   m_Layer: 0
-  m_Name: Critter
+  m_Name: Bear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-160984771358049223
+--- !u!114 &-5554488305120913895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,7 +187,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3843230928079346139}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a91ca95e4ee80d418f374f38f85a9bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ce6f3f7c3e06d446a5a024e5e712ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderDistance: 15

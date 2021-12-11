@@ -16,12 +16,15 @@ public class WanderState : INPCState
         }
         //set the npcs state to be wander
         DoWander(npc);
-        //if it sees the critter change the state to attack
-        if (CanSeeCritter(npc))
-            return npc.attackState;
+        //if it sees the bear critter change the state to run attack
+        if (CanSeeBear(npc))
+            return npc.runState;
         //if it sees the pickup change its state to collect
         else if (CanSeePickUp(npc))
             return npc.collectState;
+        //if it sees the critter change its state to attack
+        else if (CanSeeCritter(npc))
+            return npc.attackState;
         else
             //otherwise just do wander state
             return npc.wanderState;
@@ -118,6 +121,42 @@ public class WanderState : INPCState
             }
         }
         //otherwise if we don't see the critter stay in WanderState
+        return false;
+    }
+
+    private bool CanSeeBear(StateMachine npc)
+    {
+        //loop through all the bears in the list
+        foreach (GameObject bear in StateMachine.bears)
+        {
+            //get the distance between the bear and the npc
+            float distance = (bear.transform.position - npc.transform.position).magnitude;
+            //if the distance between the bear and the npc is less than the npcs bear distance
+            if (distance < npc.BearDistance)
+            {
+                //get the direction towards the bear
+                Vector3 direction = bear.transform.position - (npc.transform.position + Vector3.up);
+                //make a ray that tells us where the bear is
+                Ray ray = new Ray(npc.transform.position + Vector3.up, direction);
+                //make it red
+                Debug.DrawRay(npc.transform.position + Vector3.up, direction, Color.green);
+                //if the raycast detects the bear
+                if (Physics.Raycast(ray, out RaycastHit hit, npc.BearDistance))
+                {
+                    //print out that we have found it
+                    Debug.Log("I hit" + hit.collider.name);
+                    //if the npcs collider collides with the bears collider
+                    if (hit.collider.gameObject == bear)
+                    {
+                        //make the bear the npcs next target
+                        npc.bearTarget = bear;
+                        //returns true and transitions to RunState
+                        return true;
+                    }
+                }
+            }
+        }
+        //otherwise if we don't see the bear stay in WanderState
         return false;
     }
 }
